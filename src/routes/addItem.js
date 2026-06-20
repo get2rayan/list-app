@@ -8,6 +8,8 @@ module.exports = async (req, res) => {
         completed: false,
     };
 
-    await db.storeItem(item);
+    await db.storeItem(item).catch(error => {
+        res.status(500).send({ error: error.message });
+    });
     res.send(item);
 };
